@@ -1,1 +1,28 @@
 These are (some of) my dotfiles.  I hope you find them useful.
+
+Note #0:
+
+  This collection is incomplete, and consists only of configurations which can
+  be published.  Naturally I have other files or sections which need to remain
+  private, for various reasons.
+
+  The private configurations are held in a separate repository, which also
+  contains scripts for merging files from both repositories and then installs
+  the resulting configurations onto all machines I have access to.
+
+  There's nothing particularly special kept private, and I hope to keep as much
+  of it public as possible.
+
+Note #1:
+
+  Some files are written in m4.  This allows me to include other (possibly
+  private) files inline, or change contents based on which site I am pushing
+  the configuration to.  If you want to use these files, you'll need to:
+
+   - strip the .m4 suffix
+   - remove m4_ sections (you can pass them through GNU m4 using -P for this..)
+   - fix up any fallout, e.g. if you don't use the same -Dfoo as me
+
+As the "copyright" at the top of each file says, I really appreciate feedback
+on any of this stuff, even letting me know that you discovered something new
+from one of them would be great!
