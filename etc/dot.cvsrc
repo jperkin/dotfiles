@@ -1,0 +1,26 @@
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+# dot.cvsrc - configuration defaults for various cvs(1) commands
+#
+#   cvs(1)
+#
+# Ordinarily this file would contain some whitespace lines to make it more
+# readable, but for some inexplicable reason the Debian folks have decided
+# to let the MirBSD project leader maintain their cvs package, and he has
+# subsequently made Debian (and thus Ubuntu et al) use a broken version of
+# cvs from his OS which does not allow blank lines in .cvsrc:
+#
+#   http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=631192
+#
+# Idiots.
+#
+cvs -q -z9
+checkout -P
+diff -u
+rdiff -u
+update -d -P
