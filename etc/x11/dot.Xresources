@@ -1,0 +1,93 @@
+!
+!      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+!
+! You can freely distribute/modify it (and are encouraged to do so),
+! and you are welcome to buy me a beer if we ever meet and you think
+! this stuff is worth it.  Improvements and cleanups always welcome.
+!
+! dot.Xresources - settings for X11 applications using the Xt toolkit.
+!
+!   X(7), xrdb(1), appres(1)
+!
+
+
+! XTerm
+XTerm*color0:           Black
+XTerm*color1:           Red4
+XTerm*color2:           Green4
+XTerm*color3:           Yellow4
+XTerm*color4:           Blue4
+XTerm*color5:           Magenta4
+XTerm*color6:           Cyan4
+XTerm*color7:           #C0C0C0
+XTerm*color8:           #808080
+XTerm*color9:           #FF6060
+XTerm*color10:          #00FF00
+XTerm*color11:          #FFFF00
+XTerm*color12:          #8080FF
+XTerm*color13:          #FF40FF
+XTerm*color14:          #00FFFF
+XTerm*color15:          #FFFFFF
+XTerm*cursorColor:      Yellow
+
+XTerm*faceName:         Ubuntu Mono
+XTerm*faceSize:         14
+XTerm*boldMode:         false
+XTerm*allowBoldFonts:   false
+
+XTerm*scrollBar:        false
+XTerm*saveLines:        10000
+XTerm*VT100.geometry:   80x25
+XTerm*loginShell:       true
+XTerm*background:       Black
+XTerm*foreground:       #C0C0C0
+XTerm*backarrowKey:     false
+XTerm*backspacekey:     ^?
+XTerm*deleteIsDEL:	false
+XTerm*deletekey:        \e[3~
+XTerm*pointerShape:     left_ptr
+!XTerm*openIm:          false
+XTerm*toolBar:          false
+
+XTerm.VT100.charClass:  33:48,37:48,45-47:48,58:48,64:48
+
+XTerm.VT100.eightBitInput:      false
+XTerm.VT100.metaSendsEscape:    true
+
+XTerm.VT100.Translations: #override                     \n\
+        Shift<Key>Prior:        scroll-back(1,page)     \n\
+        Shift<Key>Next:         scroll-forw(1,page)
+
+XTerm*fontMenu*font1*Label:     noxis
+XTerm*VT100*font1:              noxis
+XTerm*fontMenu*font2*Label:     proggy
+XTerm*VT100*font2:              -windows-proggycleancp-medium-r-normal-sans-13-80-96-96-c-70-iso8859-1
+XTerm*fontMenu*font3*Label:     fxd
+XTerm*VT100*font3:              -mplus-fxd-medium-r-normal--10-100-75-75-c-60-iso8859-1
+
+Aterm.transparent:      true
+Aterm.shading:          5
+Aterm.termName:         xterm
+
+XConsole*font:          -misc-monaco-medium-r-normal--10-0-0-0-p-0-iso8859-1
+XConsole*foreground:    White
+XConsole*background:    Black
+
+XLock.mode:             pyro
+XLock.erasemode:        random_squares
+XLock.font:             -mplus-fxd-medium-r-normal--10-100-75-75-c-60-iso8859-15
+XLock.planfont:         -mplus-fxd-medium-r-normal--10-100-75-75-c-60-iso8859-15
+XLock.messagefont:      -mplus-fxd-medium-r-normal--10-100-75-75-c-60-iso8859-15
+XLock.background:       #001030
+XLock.foreground:       White
+XLock.username:         Username: 
+XLock.passwd:
+XLock.info:             Enter password to unlock.
+
+XClock.geometry:        80x80-0+0
+XClock*background:      #001030
+XClock*hourColor:       Green
+XClock*minuteColor:     Red
+XClock*secondColor:     RoyalBlue
+XClock*majorColor:      White
+XClock*minorColor:      #001030

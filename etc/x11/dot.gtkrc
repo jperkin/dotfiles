@@ -1,0 +1,24 @@
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+# dot.gtkrc - configuration file for GTK widgets.
+#
+#   http://www.gtk.org/
+#
+
+
+# For now, just use a nice looking font.  Further work will include colours
+# etc (probably based on the "notif" engine, but without loading it).
+style "default"
+{
+    font = "-b&h-lucida-medium-r-normal-*-10-*-*-*-p-*-iso8859-1"
+}
+
+# AFAIK, these are the only ones available.  Need more documentation...
+class           "*" style "default"
+widget          "*" style "default"
+widget_class    "*" style "default"

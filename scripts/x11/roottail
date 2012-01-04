@@ -1,0 +1,36 @@
+#!/bin/sh
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+# scripts/x11/roottail - simple script to show system messages from terminal
+#
+
+
+# Use a nice perl script to colour messages if available
+if command -v colorize >/dev/null 2>&1; then
+    ADD_COLOUR="| colorize"
+else
+    ADD_COLOUR=""
+fi
+
+# Location of kernel syslog file
+case "${OS_NAME}" in
+SunOS)
+    SYSLOG="/var/adm/messages"
+    ;;
+*)
+    SYSLOG="/var/log/messages"
+    ;;
+esac
+
+# Test if we have -F functionality for tail(1) used for newsyslog rotation
+# detection, if not fall back to standard -f
+if `echo test | tail -F >/dev/null 2>&1`; then
+    eval tail -F ${SYSLOG} ${ADD_COLOUR}
+else
+    eval tail -f ${SYSLOG} ${ADD_COLOUR}
+fi

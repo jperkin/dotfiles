@@ -1,0 +1,115 @@
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+# dot.xturc - configuration file for the analog clock `xtu'.
+#
+
+
+# Commented configuration lines are the original defaults.
+
+# geometry:     x0y0w200h200
+geometry:       75x75-0+0
+
+# seconds:      false true
+seconds:        true
+
+# clockface:    oval rectangle
+clockface:      oval
+
+# digits:       minutes hour quarter twelfe
+digits:         minutes
+
+# handsform:    triangle line rhombus rectangle
+handsform:      rectangle
+
+# handwidth:    normal vthin thin thick vthick
+handwidth:      normal
+
+# shadow:       true false
+shadow:         true
+
+# bordertype:   none single double
+bordertype:     none
+
+# borderwidth:  4
+borderwidth:    0
+
+# chime:        none hours quarters
+chime:          none
+
+# immovable:    false true
+immovable:      true
+
+# faceform:     original round
+faceform:       original
+
+# pixmap:       none <filename.xpm>
+pixmap:         none
+
+# resize_to_pm: false true
+resize_to_pm:   true
+
+# wm: false true
+wm:             false
+
+# shext: false true
+shext:          false
+
+# sleep:        50000
+sleep:          50000
+
+#
+# Color section. "none" means white, except for shadow, where it means black
+#
+
+# Seconds
+# seconds_color:        none
+seconds_color:          RoyalBlue
+
+# Minute Area Color
+# min_area:             none
+min_area_color:         DarkRed
+
+# Minute Area Pixmap
+# min_area:             none
+min_area_pixmap:        none
+
+# Minute Outline
+# min_outline:          none
+min_outline:            Red
+
+# Hour Area Color
+# hour_area:            none
+hour_area_color:        SeaGreen
+
+# Hour Area Pixmap
+# hour_area:            none
+hour_area_pixmap:       none
+
+# Hour Outline
+# hour_outline:         none
+hour_outline:           Green
+
+# Shadow
+# shadow_color:         none
+shadow_color:           Black
+
+# Twelfe
+# twelfe_color:         none
+twelfe_color:           DarkBlue
+
+# Quarter
+# quarter_color:        none
+quarter_color:          DarkBlue
+
+# Hours
+# hour_color:           none
+hour_color:             White
+
+# Minutes
+# minutes_color:        none
+minutes_color:          none
