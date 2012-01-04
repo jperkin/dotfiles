@@ -1,0 +1,21 @@
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+# dot.inputrc - configuration file for the GNU readline(3) library.
+#
+#   readline(3)
+#
+
+
+# Default to vi mode.
+set editing-mode vi
+
+# Enable UTF8 XXX: why is this disabled? re-investigate..
+#set meta-flag on
+#set input-meta on
+#set output-meta on
+#set convert-meta off

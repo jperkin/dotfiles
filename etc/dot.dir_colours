@@ -1,0 +1,133 @@
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+# dot.dir_colours - colours for GNU ls(1) by filetype, extension etc
+#
+
+
+# Always colour please
+COLOR yes
+
+# Extra command line options for ls go here.
+#  -F = show '/' for dirs.
+#  -b = better support for special characters.
+#  -T 0 = don't trust tab spacing when formatting ls output.
+OPTIONS -F -b -T 0
+
+# One TERM entry for each termtype that is colorizable
+TERM ansi
+TERM cons25
+TERM console
+TERM dtterm
+TERM linux
+TERM rxvt
+TERM screen
+TERM screen-bce
+TERM vt220
+TERM xterm
+TERM xterm-color
+TERM xterm-xfree86
+
+# Turn on 8-bit characters
+EIGHTBIT 1
+
+# Below are the color init strings for the basic file types.
+#
+# Attribute codes:
+# 00=none 01=bold 04=underscore 05=blink 07=reverse 08=concealed
+#
+# Text color codes:
+# 30=black 31=red 32=green 33=yellow 34=blue 35=magenta 36=cyan 37=white
+#
+# Background color codes:
+# 40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white
+
+NORMAL  00;37       # Default, although everything should be something.
+FILE    00;37       # normal file
+DIR     01;33       # directory
+LINK    01;36       # symbolic link
+FIFO    40;33       # pipe
+SOCK    01;35       # socket
+BLK     40;33;01    # block device driver
+CHR     40;33;01    # character device driver
+ORPHAN  40;31;01    # Symlink to a non-existant file
+
+# This is for files with execute permission:
+EXEC    01;32
+
+# File extensions
+*~      05;31       # Ugh, lame backup files (flashing red - rm!)
+
+# Executables   - Green (Dark to distinguish from real Unix executables)
+.exe    00;32       # DOS executable
+.com    00;32       # DOS command file
+.bat    00;32       # DOS batch file
+
+# Source code - Cyan/White
+.c      01;37       # C source
+.cc     01;37       # C++ source
+.o      00;33       # C object
+.h      00;36       # C header
+.pl     01;36       # Perl source
+.pm     01;36       # Perl module
+.cgi    01;36       # Perl CGI
+.java   01;36       # Java source
+.html   01;37       # HTML
+
+# Archives - Red
+.tar    01;31
+.tgz    01;31
+.arj    00;31
+.taz    00;31
+.lzh    00;31
+.lha    00;31
+.deb    01;31
+.rpm    00;31
+.zip    00;31
+.z      00;31
+.Z      00;31
+.gz     01;31
+.bz2    01;31
+
+# Image Formats - Magenta
+.jpg    01;35
+.jpeg   01;35
+.JPG    01;35
+.gif    00;35
+.GIF    00;35
+.bmp    00;35
+.BMP    00;35
+.xbm    01;35
+.ppm    01;35
+.xpm    01;35
+.tif    01;35
+.png    01;35
+.pcx    01;35
+
+# Audio/Video formats - Blue
+.avi    00;34
+.mp3    01;34
+.mpg    01;34
+.mpeg   01;34
+
+# Used for testing purposes
+.0030   00;30
+.0130   01;30
+.0031   00;31
+.0131   01;31
+.0032   00;32
+.0132   01;32
+.0033   00;33
+.0133   01;33
+.0034   00;34
+.0134   01;34
+.0035   00;35
+.0135   01;35
+.0036   00;36
+.0136   01;36
+.0037   00;37
+.0137   01;37
