@@ -1,0 +1,59 @@
+#!/bin/sh
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+# etc/sh/aliases - shell aliases
+#
+
+
+# General aliases
+
+# Use GNU ls(1) if available, as it supports colour.
+GNUPREFIX="g gnu"
+
+# Also check for the NUL prefix, for systems where ls == GNU ls
+for pfx in " " ${GNUPREFIX}; do
+
+    if command -v ${pfx}ls >/dev/null 2>&1; then
+
+        # FreeBSD's /bin/ls doesn't report an error for '--version' so we need
+        # to actually check some of the output.  GNU renamed 'fileutils' to
+        # 'coreutils' a while back, so this should suffice for now.
+        if ${pfx}ls --version 2>&1 | grep '^ls (.*utils)' >/dev/null; then
+
+            # Always use colour, even if dircolors not available,
+            # as the system-wide config files may specify some,
+            # which will make us fix the usually horrid defaults!
+            cleanpfx=`echo ${pfx} | sed -e 's/ //g'`
+            alias ls="${cleanpfx}ls --color=auto -F -b -T 0"
+        fi
+    fi
+
+    # Separate check for dircolors for systems such as FreeBSD which
+    # install GNU ls with a "gnu" prefix, but leave dircolors as-is.
+    # Nice inconsistency, but there we go; that's why I use NetBSD :)
+    if command -v ${pfx}dircolors >/dev/null 2>&1; then
+
+        # Export colour preferences to the environment.
+        if ${pfx}dircolors --version 2>&1 \
+          | grep '^dircolors (.*utils)' >/dev/null; then
+            eval `${pfx}dircolors -b ${HOME}/.dir_colours`
+
+        # Weird version of dircolors which is not GNU, supplied with
+        # Slackware Linux.
+        elif ${pfx}dircolors -v 2>&1 | grep '^For .*utils' >/dev/null; then
+            eval `${pfx}dircolors -b ${HOME}/.dir_colours`
+        fi
+    fi
+done
+
+unset GNUPREFIX pfx cleanpfx
+
+# General aliases
+alias suroot="sudo /bin/sh -c 'su -'"
+alias vpn-up="sudo vpnc"
+alias vpn-down="sudo vpnc-disconnect"

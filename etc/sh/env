@@ -1,0 +1,187 @@
+#!/bin/sh
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+# etc/sh/env - local environment variables.
+#
+
+
+# Basic environment setup
+
+# Dig out various details of the local environment, used to correctly
+# configure our setup.
+OS_NAME=`uname -s`
+
+case "${OS_NAME}" in
+Linux)
+    # Use the same as pkgsrc for consistency, as well as the fact that
+    # `uname -p' on Linux usually returns "unknown".
+    OS_ARCH=`uname -m | sed -e 's/i.86/i386/' -e 's/ppc/powerpc/'`
+
+    # Given the frequent nature of Linux kernel revisions compared to
+    # other operating systems, use the major release only as opposed to
+    # the full version to save us having hundreds of individual builds.
+    OS_VERSION=`uname -r | cut -d. -f1-2`
+    ;;
+OpenBSD)
+    # OpenBSD returns CPU identification string in `uname -p`
+    OS_ARCH=`uname -m`
+    OS_VERSION=`uname -r`
+    ;;
+*)
+    OS_ARCH=`uname -p`
+    OS_VERSION=`uname -r`
+    ;;
+esac
+
+OS_HOST=`hostname`
+
+OS_PREFIX=${OS_NAME}-${OS_VERSION}-${OS_ARCH}
+
+export OS_ARCH OS_HOST OS_NAME OS_PREFIX OS_VERSION
+
+# Sensible output for disk status programs.
+BLOCKSIZE=1k
+export BLOCKSIZE
+
+# cvs remote command
+prefprog BZR_SSH ssh rsh
+prefprog CVS_RSH ssh rsh
+
+# Vim if possible, please.
+prefprog EDITOR vim vi ed
+
+# Less is more.
+prefprog PAGER less more
+
+# Mozilla-compatible browser, used by e.g. scripts/mutt/urlview
+prefprog MOZILLA firefox-linux firefox mozilla
+
+# Support ANSI colours in less(1)
+LESS="-R"
+export LESS
+
+# Disable less history
+LESSHISTFILE="-"
+export LESSHISTFILE
+
+# Add ANSI colour support to ri
+RI="-f ansi"
+export RI
+
+# pkg_chk(8) configuration file
+PKGCHK_CONF=${HOME}/etc/pkgchk.conf
+export PKGCHK_CONF
+
+# While this may not correctly stop Solaris ksh from creating a history file,
+# that's actually the intention as it uses .sh_history for the current shell
+# rather than storing the session in memory.  bash uses memory so I can safely
+# unset this here and have the "correct" behaviour for both shells, with the
+# caveat that I need to remember to remove the .sh_history file after bash has
+# been installed on the host.
+unset HISTFILE
+
+# Make sure ^D logs us out (RedHat seems to enable it by default somewhere).
+unset ignoreeof
+
+# Preferred list of locales, in order of preference.  If none are found
+# at all, then default to "C" at the end.
+#
+# TODO: Only support LC_CTYPE for now, properly investigate setting the rest.
+#
+PREFLOCALE="en_GB.UTF-8 en_GB.utf8"
+PREFLOCALE="${PREFLOCALE} en_GB.ISO8859-15 en_GB.iso885915"
+PREFLOCALE="${PREFLOCALE} en_GB.ISO8859-1 en_GB.iso88591 iso_8859_1"
+PREFLOCALE="${PREFLOCALE} en_GB"
+
+if command -v locale >/dev/null 2>&1; then
+    for loc in ${PREFLOCALE}; do
+        if [ "x`locale -a | grep '^'${loc}'$'`" = "x${loc}" ]; then
+            LC_CTYPE=${loc}
+            break
+        fi
+    done
+else
+    # Common location of locale data files, useful on older machines which
+    # do not have locale(1).
+    for dir in /usr/share/locale /usr/lib/locale; do
+        if [ ! -d ${dir} ]; then
+            continue
+        fi
+
+        for loc in ${PREFLOCALE}; do
+            if [ -d ${dir}/${loc} ]; then
+                LC_CTYPE=${loc}
+                break
+            fi
+        done
+
+        # Break out of ${dir} loop if we matched.
+        if [ ! -z "${LC_CTYPE}" ]; then
+            break
+        fi
+    done
+
+    unset dir
+fi
+
+if [ -z "${LC_CTYPE}" ]; then
+    LC_CTYPE=C
+fi
+
+#
+# XXX: For now just use 'C' on NetBSD, to avoid bash/multibyte bugs, needs
+# more investigation
+#
+if [ "${OS_NAME}" = "NetBSD" ]; then
+    LC_CTYPE=C
+fi
+
+export LC_CTYPE
+
+unset PREFLOCALE loc
+
+#
+# Some systems can set this to bogus values, explicitly disable it
+#
+unset LANG
+
+#
+# Make sure "ls -a" listing sorts dotfiles first, rather than interspersing
+# them alphabetically with everything else
+#
+LC_COLLATE=C
+export LC_COLLATE
+
+#
+# If SSH_AUTH_SOCK is not set, try and attach to an existing ssh-agent.  As it
+# is quite complicated to match the right agent (i.e. the one running on the
+# host rather than sockets opened for forwarded agents), we manually write
+# a "use" file in the socket directory for the one we want.
+#
+if [ -z "${SSH_AUTH_SOCK}" ]; then
+    for checkfile in /tmp/ssh-*/use; do
+        if [ ! -f ${checkfile} ]; then
+            continue
+        fi
+
+        sockdir=`dirname ${checkfile}`
+        sock=`echo ${sockdir}/agent.*`
+
+        if [ -r ${sock} ]; then
+            # Test to see if ssh-add can connect to the agent
+            env SSH_AUTH_SOCK=${sock} ssh-add -l >/dev/null 2>&1
+
+            if [ $? = 0 ]; then
+                SSH_AUTH_SOCK=${sock}
+                export SSH_AUTH_SOCK
+                break
+            fi
+        fi
+    done
+fi
+unset checkfile sock sockdir

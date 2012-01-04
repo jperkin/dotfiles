@@ -1,0 +1,177 @@
+#!/usr/bin/env bash
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+# etc/bash/prompt - command line prompt for interactive bash shells.
+#
+
+
+# Load in the component parts of my prompt.  This is a function so that the
+# variables it sets can be modified depending on what is already set in the
+# environment (e.g. colour definitions).
+set_prompt_bits()
+{
+    # Separate the final prompt up into individual and manageable pieces
+    # which we can construct later.  Also helps 80 column width display.
+    PSTART="${CYAN}-${DARKCYAN}-"
+    PMID="${DARKCYAN}-"
+    PEND="${DARKCYAN}-${CYAN}-\n${RESET}"
+
+    # Show user@hostname.  Needs fixing for NIS domainname.
+    PUSER="${GREY}<${CYAN}\u${DARKCYAN}@${CYAN}${OS_HOST}${GREY}>"
+
+    # I use ${PWD} here to show the full path, as bash likes to use "~"
+    # substitution for ${HOME}.
+    PDIR="${GREY}<${BLUE}\${PSPWD}${GREY}>"
+
+    # Not currently in use, but quite useful.
+    PDATE="${GREY}<${YELLOW}\$(date +%Y-%m-%d)${GREY}>"
+
+    # Nice and simple.  Normally I'd use a "$" for a sh-style prompt, but
+    # it doesn't look quite right with the rest of my prompt.  Change the
+    # colour when root to help remind me I might break something.
+    case "${UID}" in
+    0)
+        PCMD="${DARKCYAN}-${YELLOW}> ${RESET}"
+        ;;
+    *)
+        PCMD="${DARKCYAN}-${GREY}> ${RESET}"
+        ;;
+    esac
+}
+
+# Remove variables which are no longer necessary.
+unset_prompt_bits()
+{
+    unset PSTART PMID PEND
+    unset PUSER PDIR PDATE PCMD
+}
+
+set_prompt_ps1()
+{
+    case "$1" in
+    colour)
+        set_colours
+        ;;
+    esac
+
+    set_prompt_bits
+    PS1="${PSTART}${PUSER}${PMID}${PDIR}${PEND}${PCMD}"
+    unset_prompt_bits
+
+    # Do this explicitly anyway, no point in further checks.
+    unset_colours
+}
+
+# Configure current directory name for prompt and X11 window titles.
+set_prompt_command_x11()
+{
+    # These escape sequences are used to set various X strings.
+    #
+    #   \033]0; = both title bar and icon name
+    #   \033]1; = icon name
+    #   \033]2; = title bar
+    #
+    ICONSTART="'\033]1;'"
+    TITLESTART="'\033]2;'"
+    ENDSTRING="'\007'"
+
+    PTITLE="${TITLESTART}[${USER:-${LOGNAME}}@${OS_HOST}] \(\${TBPWD}\)${ENDSTRING}"
+    PICON="${ICONSTART}${OS_HOST}${ENDSTRING}"
+
+    PROMPT_COMMAND="set_tbpwd_length; echo -ne ${PTITLE}${PICON}"
+
+    unset ICONSTART TITLESTART ENDSTRING
+    unset PTITLE PICON
+}
+
+# Simple command to update current directory name.
+set_prompt_command()
+{
+    PROMPT_COMMAND="set_pspwd_length"
+}
+
+# Work out a sensible length of the directory name for the command prompt.
+set_pspwd_length()
+{
+    # Get the number of columns from the $COLUMNS variable, reduce by the
+    # number of characters making up the rest of the prompt, 3 for the
+    # "...", and an extra 2 to keep it away from the right hand edge a
+    # bit.
+    #
+    # Unfortunately, $COLUMNS isn't set before the first prompt appears,
+    # so we default to 80 in that case, which should suffice.
+    #
+    if [ -n "${USER}" ]; then
+        userlen=$((${#USER}))
+    else
+        userlen=$((${#LOGNAME}))
+    fi
+    if [ -z "${COLUMNS}" ]; then
+        MAXPSWIDTH=$((80-${userlen}-${#OS_HOST}-10-3-2))
+    else
+        MAXPSWIDTH=$((${COLUMNS}-${userlen}-${#OS_HOST}-10-3-2))
+    fi
+
+    if [ ${#PWD} -gt ${MAXPSWIDTH} ]; then
+        PSPWD="...${PWD:$((${#PWD}-${MAXPSWIDTH})):${MAXPSWIDTH}}"
+    else
+        PSPWD="${PWD}"
+    fi
+
+    unset MAXPSWIDTH userlen
+}
+
+# Work out a sensible length of the directory name printed to the titlebar.
+set_tbpwd_length()
+{
+    # This is a rough guide, and will of course break if you use huge
+    # fonts or something, but it's better than nothing and works with
+    # my current setup (with some breathing room).
+    #
+    # Assume maximum width of 60 for the titlebar, minus the total of
+    # other characters used in the prompt and 3 for the "..."
+    if [ -n "${USER}" ]; then
+        MAXTBWIDTH=$((60-${#USER}-${#OS_HOST}-6-3))
+    else
+        MAXTBWIDTH=$((60-${#LOGNAME}-${#OS_HOST}-6-3))
+    fi
+
+    if [ ${#PWD} -gt ${MAXTBWIDTH} ]; then
+        TBPWD="...${PWD:$((${#PWD}-${MAXTBWIDTH})):${MAXTBWIDTH}}"
+    else
+        TBPWD="${PWD}"
+    fi
+
+    # Unconditionally run the PS1 updater too.
+    set_pspwd_length
+
+    unset MAXTBWIDTH
+}
+
+# Set up prompt corresponding to our environment.
+set_prompt()
+{
+    # Invoke the prompt based on our terminal setting.
+    case "${TERM}" in
+    # Colour support, running under X.
+    dtterm|xterm*|rxvt|screen*)
+        set_prompt_ps1 colour
+        set_prompt_command_x11
+        ;;
+    # Colour support, but no need for X setup.
+    cons25|vt220|linux)
+        set_prompt_ps1 colour
+        set_prompt_command
+        ;;
+    # Basic console, no colour.
+    *)
+        set_prompt_ps1
+        set_prompt_command
+        ;;
+    esac
+}

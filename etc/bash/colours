@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+# etc/bash/colours - set up ANSI colour variables, mainly for use in prompts.
+#
+
+
+#
+# ANSI colours.  These are wrapped around "[...]" to prevent bash from
+# including them as printable characters on the command line, thereby
+# computing the line length correctly.
+#
+set_colours()
+{
+        BLACK="\[\033[0m\]\[\033[0;30m\]"
+      DARKRED="\[\033[0m\]\[\033[0;31m\]"
+    DARKGREEN="\[\033[0m\]\[\033[0;32m\]"
+        BROWN="\[\033[0m\]\[\033[0;33m\]"
+     DARKBLUE="\[\033[0m\]\[\033[0;34m\]"
+      MAGENTA="\[\033[0m\]\[\033[0;35m\]"
+     DARKCYAN="\[\033[0m\]\[\033[0;36m\]"
+         GREY="\[\033[0m\]\[\033[0;37m\]"
+     DARKGREY="\[\033[0m\]\[\033[1;30m\]"
+          RED="\[\033[0m\]\[\033[1;31m\]"
+        GREEN="\[\033[0m\]\[\033[1;32m\]"
+       YELLOW="\[\033[0m\]\[\033[1;33m\]"
+         BLUE="\[\033[0m\]\[\033[1;34m\]"
+         PINK="\[\033[0m\]\[\033[1;35m\]"
+         CYAN="\[\033[0m\]\[\033[1;36m\]"
+        WHITE="\[\033[0m\]\[\033[1;37m\]"
+        RESET="\[\033[0m\]"
+}
+
+#
+# We can unset the variables after they have been used to keep the
+# environment clean (save the planet!)
+#
+unset_colours()
+{
+    unset BLACK DARKRED DARKGREEN BROWN DARKBLUE MAGENTA DARKCYAN GREY
+    unset DARKGREY RED GREEN YELLOW BLUE PINK CYAN WHITE RESET
+}

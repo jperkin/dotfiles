@@ -1,0 +1,86 @@
+#!/bin/sh
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+# etc/sh/paths - default search path definitions for Bourne shells.
+#
+
+
+# Local program path.
+case "${OS_NAME}" in
+NetBSD)
+    setpath PATH                                \
+      ${HOME}/bin                               \
+      ${HOME}/pkg/${OS_PREFIX}/sbin             \
+      ${HOME}/pkg/${OS_PREFIX}/bin              \
+      ${HOME}/pkg/sbin                          \
+      ${HOME}/pkg/bin                           \
+      /sbin /bin /usr/sbin /usr/bin             \
+      /opt/pkg/sbin /opt/pkg/bin                \
+      /usr/pkg/sbin /usr/pkg/bin                \
+      /usr/pkg/xorg/bin                         \
+      /usr/X11R7/bin                            \
+      /usr/X11R6/bin                            \
+      /usr/local/sbin /usr/local/bin
+    ;;
+*)
+    setpath PATH                                \
+      ${HOME}/bin                               \
+      ${HOME}/pkg/${OS_PREFIX}/sbin             \
+      ${HOME}/pkg/${OS_PREFIX}/bin              \
+      ${HOME}/pkg/sbin                          \
+      ${HOME}/pkg/bin                           \
+      /opt/pkg/sbin /opt/pkg/bin                \
+      /usr/pkg/sbin /usr/pkg/bin                \
+      /sbin /bin /usr/sbin /usr/bin             \
+      /usr/ccs/bin                              \
+      /usr/pkg/xorg/bin                         \
+      /usr/sfw/sbin /usr/sfw/bin                \
+      /opt/sfw/sbin /opt/sfw/bin                \
+      /usr/X11R7/bin                            \
+      /usr/X11R6/bin                            \
+      /usr/openwin/sbin /usr/openwin/bin        \
+      /usr/dt/sbin /usr/dt/bin                  \
+      /usr/local/gnu/sbin /usr/local/gnu/bin    \
+      /usr/local/sbin /usr/local/bin
+    ;;
+esac
+
+# Local manual page path
+setpath MANPATH                                 \
+  /usr/share/man                                \
+  ${HOME}/pkg/${OS_PREFIX}/man                  \
+  ${HOME}/pkg/man                               \
+  /usr/pkg/man                                  \
+  /usr/pkg/xorg/man                             \
+  /usr/X11R7/man                                \
+  /usr/X11R6/man                                \
+  /usr/openwin/man                              \
+  /usr/dt/man                                   \
+  /usr/local/man
+
+# ${CDPATH} is useful for providing a list of directories used with the cd
+# command to search in places other than the current working directory.
+
+# Search the current directory first.
+setpath CDPATH .
+
+# NetBSD source directories relative to NETBSDSRCDIR.
+# This should probably be made generic for all BSD source trees (not hard).
+NBSDSRCDIRS="sys bin sbin usr.bin usr.sbin lib libexec games"
+NBSDSRCDIRS="${NBSDSRCDIRS} distrib/utils"
+
+# NetBSD source tree.  Local is preferred.
+for base in ${HOME}/cvs/netbsd/src /usr/src; do
+    if [ -f ${base}/BUILDING ]; then
+        for dir in ${NBSDSRCDIRS}; do
+            appendpath CDPATH ${base}/${dir}
+        done
+    fi
+done
+
+unset NBSDSRCDIRS base dir
