@@ -6,7 +6,7 @@
 # and you are welcome to buy me a beer if we ever meet and you think
 # this stuff is worth it.  Improvements and cleanups always welcome.
 #
-# .bashrc - sourced by bash(1) for interactive non-login shells.
+# dot.bashrc - sourced by bash(1) for interactive non-login shells.
 #
 #   http://www.gnu.org/software/bash/manual/bashref.html#SEC65
 #
