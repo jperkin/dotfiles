@@ -16,6 +16,9 @@ PGPKEYID="jonathan@perkin.org.uk"
 
 : ${EDITOR=vi}
 
+# Just in case we forget to fix up permissions, ensure a tight umask.
+umask 077
+
 if [ -f ${PLAINFILE} ]; then
     echo "${PLAINFILE} already exists, perhaps from an existing"
     echo "session.  Please check and remove."
@@ -25,24 +28,29 @@ fi
 if [ -f ${ENCRYPTFILE} ]; then
     gpg --output ${PLAINFILE} --decrypt ${ENCRYPTFILE}
     if [ $? -ne 0 ]; then
+        rm -f ${PLAINFILE}
         exit 1
     fi
 else
+    # Create secure-ish plain file for decrypted data.
     > ${PLAINFILE}
 fi
-
-# Ensure sane file permissions on decrypted file.
 chmod 0600 ${PLAINFILE}
-cp -p ${PLAINFILE} ${PLAINFILE}.bak
 
-# Launch editor session on decrypted file.
+# Create timestamp file to check if the decrypted file has been updated,
+# and launch editor session on decrypted file.
+> ${PLAINFILE}.touched
 $EDITOR ${PLAINFILE}
 
-# Check for any changes, if none then cleanup and exit.
-cmp ${PLAINFILE} ${PLAINFILE}.bak >/dev/null 2>&1
+# Check for any changes, if none then cleanup and exit.  "-nt" isn't supported
+# by Solaris /bin/sh but I'm not really bothered about that anymore, and can't
+# be bothered to run find(1) -newer instead.
+if [ ! ${PLAINFILE} -nt ${PLAINFILE}.touched ]; then
 
-if [ $? -eq 0 ]; then
-    rm -f ${PLAINFILE} ${PLAINFILE}.bak
+    # Write some random data to ${PLAINFILE} to scrub it, then delete it.
+    fsize=$(du -sk ${PLAINFILE} | awk '{print $1}')
+    dd if=/dev/urandom of=${PLAINFILE} bs=1k count=${fsize} conv=fsync 2>/dev/null
+    rm -f ${PLAINFILE} ${PLAINFILE}.touched
     exit
 fi
 
@@ -55,8 +63,10 @@ fi
 # Encrypt file.
 gpg --output ${ENCRYPTFILE} --encrypt --armor -r ${PGPKEYID} ${PLAINFILE}
 
-# Remove unencrypted file.
-rm -f ${PLAINFILE}
+# Remove unencrypted file after scrubbing it.
+fsize=$(du -sk ${PLAINFILE} | awk '{print $1}')
+dd if=/dev/urandom of=${PLAINFILE} bs=1k count=${fsize} conv=fsync 2>/dev/null
+rm -f ${PLAINFILE} ${PLAINFILE}.touched
 
 # Ensure sane file permissions on encrypted files.
 chmod 0400 ${ENCRYPTFILE}*
