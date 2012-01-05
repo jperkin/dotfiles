@@ -1,0 +1,62 @@
+#!/bin/sh
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+# Wrapper script to open/save a PGP encrypted file.
+#
+
+
+PLAINFILE="$HOME/.pw"
+ENCRYPTFILE="${PLAINFILE}.gpg"
+PGPKEYID="jonathan@perkin.org.uk"
+
+: ${EDITOR=vi}
+
+if [ -f ${PLAINFILE} ]; then
+    echo "${PLAINFILE} already exists, perhaps from an existing"
+    echo "session.  Please check and remove."
+    exit 1
+fi
+
+if [ -f ${ENCRYPTFILE} ]; then
+    gpg --output ${PLAINFILE} --decrypt ${ENCRYPTFILE}
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+else
+    > ${PLAINFILE}
+fi
+
+# Ensure sane file permissions on decrypted file.
+chmod 0600 ${PLAINFILE}
+cp -p ${PLAINFILE} ${PLAINFILE}.bak
+
+# Launch editor session on decrypted file.
+$EDITOR ${PLAINFILE}
+
+# Check for any changes, if none then cleanup and exit.
+cmp ${PLAINFILE} ${PLAINFILE}.bak >/dev/null 2>&1
+
+if [ $? -eq 0 ]; then
+    rm -f ${PLAINFILE} ${PLAINFILE}.bak
+    exit
+fi
+
+# Save previous copy of encrypted file.
+if [ -f ${ENCRYPTFILE} ]; then
+    rm -f ${ENCRYPTFILE}.prev
+    mv ${ENCRYPTFILE} ${ENCRYPTFILE}.prev
+fi
+
+# Encrypt file.
+gpg --output ${ENCRYPTFILE} --encrypt --armor -r ${PGPKEYID} ${PLAINFILE}
+
+# Remove unencrypted file.
+rm -f ${PLAINFILE}
+
+# Ensure sane file permissions on encrypted files.
+chmod 0400 ${ENCRYPTFILE}*
