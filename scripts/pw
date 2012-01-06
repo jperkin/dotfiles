@@ -49,7 +49,7 @@ if [ ! ${PLAINFILE} -nt ${PLAINFILE}.touched ]; then
 
     # Write some random data to ${PLAINFILE} to scrub it, then delete it.
     fsize=$(du -sk ${PLAINFILE} | awk '{print $1}')
-    dd if=/dev/urandom of=${PLAINFILE} bs=1k count=${fsize} conv=fsync 2>/dev/null
+    dd if=/dev/urandom of=${PLAINFILE} bs=1k count=${fsize} conv=notrunc,fsync 2>/dev/null
     rm -f ${PLAINFILE} ${PLAINFILE}.touched
     exit
 fi
@@ -65,7 +65,7 @@ gpg --output ${ENCRYPTFILE} --encrypt --armor -r ${PGPKEYID} ${PLAINFILE}
 
 # Remove unencrypted file after scrubbing it.
 fsize=$(du -sk ${PLAINFILE} | awk '{print $1}')
-dd if=/dev/urandom of=${PLAINFILE} bs=1k count=${fsize} conv=fsync 2>/dev/null
+dd if=/dev/urandom of=${PLAINFILE} bs=1k count=${fsize} conv=notrunc,fsync 2>/dev/null
 rm -f ${PLAINFILE} ${PLAINFILE}.touched
 
 # Ensure sane file permissions on encrypted files.
