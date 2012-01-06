@@ -1,0 +1,114 @@
+m4_include(`common')m4_dnl
+#!/bin/sh
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+#   $Id: spamreclass.m4,v 1.2 2010-10-25 20:35:54 sketch Exp $
+#
+# scripts/mutt/spamreclass - re-classify spam/ham to train dspam correctly
+#
+
+
+#
+# As this is ran from cron, any errors are simply sent to stdout which cron
+# picks up and automatically emails to me.  No need for exiting etc.
+#
+
+#
+# Variables and pathnames
+#
+SPAMDIRS="${HOME}/Mail/spam/new ${HOME}/Mail/spam/cur"
+HAMDIRS="${HOME}/Mail/ham/new ${HOME}/Mail/ham/cur"
+KNOWNSPAMDIR="${HOME}/Mail/knownspam/cur"
+MBOXDIR="${HOME}/Mail/mbox/new"
+#
+# XXX: Genericise
+DSPAM="/usr/local/dspam3/bin/dspam --user jonp"
+DSPAM_STATS="/usr/local/dspam3/bin/dspam_stats jonp"
+FORMAIL="/usr/local/bin/formail"
+#
+RECLASS_SPAM="${FORMAIL} -s ${DSPAM} --mode=toe --class=spam --source=error"
+RECLASS_HAM="${FORMAIL} -s ${DSPAM} --mode=toe --class=innocent --source=error"
+
+#
+# Mail saved to =spam got through the spam filter: re-classify and harvest.
+#
+for dir in ${SPAMDIRS}; do
+    if [ -d ${dir} ]; then
+        for mail in `find ${dir} -type f`; do
+            sm_prev=`${DSPAM_STATS} | awk '{print $7}'`
+            cat ${mail} | ${RECLASS_SPAM}
+            sm_after=`${DSPAM_STATS} | awk '{print $7}'`
+
+            #
+            # Sanity check the mail has been processed by checking
+            # the "Spam Misclassified" output from dspam_stats and
+            # ensuring it has been incremented.
+            #
+            if [ ${sm_after} -le ${sm_prev} ]; then
+                printf "SM counter not incremented after"
+                printf " processing ${mail}, not moving.\n"
+            else
+                #
+                # I'm reasonably happy it's now been processed
+                # correctly, so put it in my harvested spam
+                # directory, used for training a new instance.
+                # Before we do that, just for sanity purposes
+                # check the file doesn't exist first (this
+                # should never happen with unique mail IDs so
+                # if it does it's probably me breaking
+                # something so I want to know about it).
+                #
+                if [ -f ${KNOWNSPAMDIR}/${mail} ]; then
+                    printf "`basename ${mail}` already"
+                    printf " exists in ${KNOWNSPAMDIR}!\n"
+                    printf "${mail} not moved.\n"
+                else
+                    mv ${mail} ${KNOWNSPAMDIR}
+                fi
+            fi
+        done
+    fi
+done
+
+#
+# Mail saved to =ham was incorrectly classified as spam: re-classify and save.
+#
+for dir in ${HAMDIRS}; do
+    if [ -d ${dir} ]; then
+        for mail in `find ${dir} -type f`; do
+            im_prev=`${DSPAM_STATS} | awk '{print $9}'`
+            cat ${mail} | ${RECLASS_HAM}
+            im_after=`${DSPAM_STATS} | awk '{print $9}'`
+
+            #
+            # Sanity check the mail has been processed by checking
+            # the "Innocent Misclassified" output from dspam_stats
+            # and ensuring it has been incremented.
+            #
+            if [ ${im_after} -le ${im_prev} ]; then
+                printf "IM counter not incremented after"
+                printf " processing ${mail}, not moving.\n"
+            else
+                #
+                # Save mail to =mbox after another sanity
+                # check that we're not blatting anything.
+                # Note that it goes in new/ so that I can
+                # easily move it elsewhere, else it would
+                # just be hidden amongst the rest.
+                #
+                if [ -f ${MBOXDIR}/${mail} ]; then
+                    printf "`basename ${mail}` already"
+                    printf " exists in ${MBOXDIR}!\n"
+                    printf "${mail} not moved.\n"
+                else
+                    mv ${mail} ${MBOXDIR}
+                fi
+            fi
+        done
+    fi
+done

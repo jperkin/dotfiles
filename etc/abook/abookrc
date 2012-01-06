@@ -1,0 +1,24 @@
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+# .abook/abookrc - configuration file for the abook(1) address book manager.
+#
+#   abookrc(5)
+#
+
+
+# I'm unlikely to need two contacts for the same address.
+set add_email_prevent_duplicates=true
+
+# Print out addresses according to my present locale.
+set address_style=uk
+
+# Only show the primary email address in the index.  Much neater.
+set show_all_emails=false
+
+# Actually easier to read...
+set use_ascii_only=true

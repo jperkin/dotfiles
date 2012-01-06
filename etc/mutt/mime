@@ -1,0 +1,20 @@
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+# etc/mutt/mime - configuration of MIME display in mutt(1)
+#
+#   http://www.mutt.org/doc/manual/manual-5.html
+#
+
+
+# http://www.mutt.org/doc/manual/manual-5.html#ss5.4
+auto_view       text/html text
+auto_view       application/msword
+auto_view       application/excel application/ms-excel application/vnd.ms-excel
+
+# http://www.mutt.org/doc/manual/manual-5.html#ss5.5
+alternative_order   text/plain text

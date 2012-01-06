@@ -1,0 +1,22 @@
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+# etc/mutt/headers - configuration of header display for mutt(1)
+#
+
+
+# http://www.mutt.org/doc/manual/manual-3.html#ignore
+ignore          *
+unignore        From: Date: Subject: To: Cc: Reply-To:
+unignore        User-Agent: X-Agent: X-Mailer: X-Newsreader:
+
+# http://www.mutt.org/doc/manual/manual-3.html#hdr_order
+unhdr_order     *
+hdr_order       Date: From: To: Cc: Reply-To: Subject: User-Agent: X-Mailer:
+
+# http://www.mutt.org/doc/manual/manual-3.html#my_hdr
+unmy_hdr        *

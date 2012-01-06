@@ -1,0 +1,23 @@
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+# dot.mailcap - handlers for MIME attachments
+#
+#   http://www.faqs.org/rfcs/rfc1524.html
+#
+
+#
+# Pass everything off to handler script which can make more
+# intelligent decisions.
+#
+application/*;		~/scripts/mutt/mailcap-handler %s
+image/*;		~/scripts/mutt/mailcap-handler %s
+
+#
+# Ok, except for this one...
+#
+text/html;              w3m -dump %s; copiousoutput; nametemplate=%s.html

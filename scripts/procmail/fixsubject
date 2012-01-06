@@ -1,0 +1,80 @@
+#!/usr/bin/env awk -f
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+
+
+#
+# Simple awk script to remove the utterly braindead [List-Prefix] things
+# mailing list owners add to their Subject: lines, thinking them to be
+# somehow useful and a good method of filtering email.
+#
+# We also clean up some fallout from this, as with the braindead prefixes
+# you can end up with "Subject: RE: [List-Name] Re: [blah-workers] Re:
+# [borp] .." ad nauseum, and therefore end up with lots of adjacent "Re"s.
+#
+# Further work would be to fix up any fallout with multiple "Fwd"s,
+# although as they are somewhat nonstandard, this may be harder to
+# achieve.
+#
+
+BEGIN {
+    #
+    # There are some legitimate uses which we need to whitelist, although
+    # it would be preferable if a separate list was created for these!
+    #
+    whitelist[0] = "netbsd-";   # NetBSD CVS commits to branches.
+}
+
+{
+    for (i = 1; i <= NF; i++) {
+
+        # Remove [subj-prefix] lameness.
+        if ($i ~ /^\[.*\]$/) {
+
+            # But exclude some valid ones.
+            for (word in whitelist) {
+                if ($i ~ whitelist[word]) {
+                    printf("%s", $i);
+                    if (i != NF) {
+                        printf " ";
+                    }
+                    continue;
+                }
+            }
+            continue;
+        }
+
+        # Now remove adjacent "Re:"s caused by the above.
+        if ($i ~ /^[Rr][Ee]:$/ && prev ~ /^[Rr][Ee]:$/) {
+            continue;
+        }
+
+        #
+        # Remove redundant separators if used straight after, e.g:
+        #
+        #   -> ./fixsubject
+        #   Subject: [Blah] Re: [Blah] - Is anyone there?
+        #   Subject: Re: Is anyone there?
+        #
+        if ($i ~ /^[:-]$/ && (i - last >= 2)) {
+            continue;
+        }
+
+        prev = $i;
+        last = i;
+        printf("%s", $i);
+
+        if (i != NF) {
+            printf " ";
+        }
+    }
+}
+
+END {
+    printf "\n";
+}

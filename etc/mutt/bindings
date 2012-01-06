@@ -1,0 +1,57 @@
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+# etc/mutt/bindings - key bindings and macros for mutt(1)
+#
+#   http://www.mutt.org/doc/manual/manual-3.html#ss3.3
+#   http://www.mutt.org/doc/manual/manual-3.html#ss3.6
+#
+
+
+bind    pager   \177    previous-line       # The correct backspace key.
+
+#
+# Various OS combinations send different sequences so handle them all
+#
+bind    index   \e[1~   first-entry
+bind    pager   \e[1~   top
+bind    index   \e[7~   first-entry
+bind    pager   \e[7~   top
+bind    index   \e[H    first-entry
+bind    pager   \e[H    top
+#
+bind    index   \e[4~   last-entry
+bind    pager   \e[4~   bottom
+bind    index   \e[8~   last-entry
+bind    pager   \e[8~   bottom
+bind    index   \e[F    last-entry
+bind    pager   \e[F    bottom
+#
+bind    index   \e[A    previous-entry
+bind    pager   \e[A    previous-entry
+bind    index   \e[B    next-entry
+bind    pager   \e[B    next-entry
+bind    index   \e[C    next-page
+bind    pager   \e[C    next-page
+bind    index   \e[D    previous-page
+bind    pager   \e[D    previous-page
+#
+bind    editor  \e[A    history-up
+bind    editor  \e[B    history-down
+bind    editor  \e[C    forward-char
+bind    editor  \e[D    backward-char
+
+bind    index   <up>    previous-unread     # Previous unread (~O) message.
+bind    index   <down>  next-unread         # Next unread (~O) message.
+
+bind    editor  <tab>   complete-query
+
+macro   index   A       '<pipe-message>abook --add-email<enter>'        'Add address to abook(1)'
+macro   pager   A       '<pipe-message>abook --add-email<enter>'        'Add address to abook(1)'
+
+macro   index   \cb     '<enter-command>set pipe_decode<enter><pipe-message>urlview<enter><enter-command>unset pipe_decode<enter>'      'Call urlview(1) to display an embedded URL'
+macro   pager   \cb     '<enter-command>set pipe_decode<enter><pipe-message>urlview<enter><enter-command>unset pipe_decode<enter>'      'Call urlview(1) to display an embedded URL'

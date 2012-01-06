@@ -1,0 +1,29 @@
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+# dot.muttrc - configuration file for the mutt(1) mail user agent.
+#
+#   http://www.mutt.org/doc/manual/
+#
+
+
+# http://www.mutt.org/doc/manual/manual-3.html#set
+reset all
+
+# This one comes first as it sets up variables for use later in the other
+# configuration files, which we rely upon.
+source ${HOME}/etc/mutt/options
+
+# Source all setup options from the relevant configuration files.
+source ${HOME}/etc/mutt/bindings
+source ${HOME}/etc/mutt/colours
+source ${HOME}/etc/mutt/formats
+source ${HOME}/etc/mutt/gpg
+source ${HOME}/etc/mutt/headers
+source ${HOME}/etc/mutt/hooks
+source ${HOME}/etc/mutt/lists
+source ${HOME}/etc/mutt/mime

@@ -1,0 +1,33 @@
+m4_include(`common')m4_dnl
+#!/bin/sh
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+#   $Id: urlview.m4,v 1.5 2010-10-25 20:35:54 sketch Exp $
+#
+# scripts/mutt/urlview - small script to handle spawning URLs to web browser
+#
+
+
+if [ $# -ne 1 ]; then
+    echo "Usage: `basename $0` <url>"
+    exit 1
+fi
+
+# Load .profile to get environment variables
+. ${HOME}/.profile
+
+case "${OS_NAME}" in
+Darwin)
+    # Use the very cool built-in functionality to open in Safari
+    open $1
+    ;;
+*)
+    # Standard Unix desktop
+    ${MOZILLA} -remote "openURL($1, new-tab)"
+    ;;
+esac

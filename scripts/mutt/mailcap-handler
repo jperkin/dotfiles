@@ -1,0 +1,106 @@
+m4_include(`common')m4_dnl
+#!/bin/sh
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+#   $Id: mailcap-handler.m4,v 1.6 2011-11-17 16:45:06 jperkin Exp $
+#
+# scripts/mutt/mailcap-handler - generic script for launching mailcap entries
+#
+#   mailcap-handler <file> [ <type> ] [ <program> ]
+#
+
+
+if [ $# -lt 1 -o $# -gt 3 ]; then
+    echo "Usage: `basename $0` <file> [<type>] [<program>]"
+    exit 1
+else
+    file=$1; shift
+    if [ -n "$1" ]; then
+        type=$1; shift
+    fi
+    if [ -n "$1" ]; then
+        prog=$1; shift
+    fi
+fi
+
+#
+# Make temporary directory to hold generated files
+#
+tmpdir="/tmp/mailcap-${USER}"
+mkdir -p -m 0700 ${tmpdir}
+
+#
+# Get an md5sum of the file to use as a unique(-ish) copy.
+#
+if type md5 >/dev/null 2>&1; then
+        MD5='md5'
+elif type digest >/dev/null 2>&1 &&
+          digest md5 /dev/null >/dev/null 2>&1; then
+        MD5='digest md5'
+elif type digest >/dev/null 2>&1 &&
+          digest -a md5 /dev/null >/dev/null 2>&1; then
+        MD5='digest -a md5'
+elif type md5sum >/dev/null 2>&1; then
+        MD5='md5sum'
+elif type openssl >/dev/null 2>&1 &&
+          openssl md5 -hex /dev/null >/dev/null 2>&1; then
+        MD5='openssl md5 -hex'
+fi
+workfile=`$MD5 ${file} | awk '{print $1}'`
+suffix=`echo ${file} | awk -F. '{print $NF}'`
+
+if [ ! -f ${tmpdir}/${workfile}.${suffix} ]; then
+    cp ${file} ${tmpdir}/${workfile}.${suffix}
+fi
+
+case "`uname -s`" in
+Darwin)
+    open ${tmpdir}/${workfile}.${suffix}
+    ;;
+Linux)
+    if command -v xdg-open >/dev/null 2>&1; then
+        xdg-open ${tmpdir}/${workfile}.${suffix}
+    else
+        gnome-open ${tmpdir}/${workfile}.${suffix}
+    fi
+    ;;
+esac
+
+# XXX
+exit
+
+#
+# It can take some time to process and display attachments, especially large
+# Excel spreadsheets etc.  Cache the results to speed up subsequent access.
+#
+[ -d ${CACHEDIR} ] || mkdir -p -m 0700 ${CACHEDIR}
+
+type=$1; shift
+file=$1; shift
+
+cachefile="${CACHEFILE}/`basename ${file}`"
+
+#
+# Main program
+#
+case "${type}" in
+
+#
+# Excel spreadsheets.  Processed in two passes, first to convert to html, then
+# dumped as plain text to the terminal.
+#
+application/*excel*)
+
+    test -f ${cachefile}.html || xlhtml ${file} > ${cachefile}.html
+
+    test -f ${cachefile}.txt || \
+      w3m -dump -T text/html ${cachefile}.html > ${cachefile}.txt
+
+    cat ${cachefile}.txt
+    ;;
+esac
