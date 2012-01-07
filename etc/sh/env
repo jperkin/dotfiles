@@ -176,7 +176,9 @@ if [ -z "${SSH_AUTH_SOCK}" ]; then
             # Test to see if ssh-add can connect to the agent
             env SSH_AUTH_SOCK=${sock} ssh-add -l >/dev/null 2>&1
 
-            if [ $? = 0 ]; then
+            # 0 = success, 1 = could connect but command failed, we allow both
+            # as we want to use an agent even if it has no keys loaded.
+            if [ $? = 0 -o $? = 1 ]; then
                 SSH_AUTH_SOCK=${sock}
                 export SSH_AUTH_SOCK
                 break
