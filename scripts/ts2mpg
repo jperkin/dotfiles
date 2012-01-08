@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+#      Jonathan Perkin <jonathan@perkin.org.uk> wrote this file.
+#
+# You can freely distribute/modify it (and are encouraged to do so),
+# and you are welcome to buy me a beer if we ever meet and you think
+# this stuff is worth it.  Improvements and cleanups always welcome.
+#
+# Simple wrapper script around ffmpeg to strip MPEG2-TS to MPEG.
+#
+# Creates files approximately 66% the size of the original as all the
+# subtitles and extra audio tracks are removed, and improves the
+# compatibility (in my case this is done for playback via WiiMC).
+#
+
+
+#
+# Nothing special, take .ts input file and create .mpg version
+#
+if [ $# -ne 1 ]; then
+    echo "usage: ts2mpg.sh input.ts"
+    exit 2
+fi
+
+infile=$1; shift
+outfile=`basename ${infile} | sed -e 's/.ts$/.mpg/'`
+
+ffmpeg -i ${infile} -acodec copy -vcodec copy -map 0:0 -map 0:1 ${outfile}
