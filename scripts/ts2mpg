@@ -18,7 +18,7 @@
 # Nothing special, take .ts input file and create .mpg version
 #
 if [ $# -ne 1 ]; then
-    echo "usage: ts2mpg.sh input.ts"
+    echo "usage: ts2mpg input.ts"
     exit 2
 fi
 
