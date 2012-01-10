@@ -14,6 +14,7 @@
 case "${OS_NAME}" in
 NetBSD)
     setpath PATH                                \
+      ${HOME}/scripts                           \
       ${HOME}/bin                               \
       ${HOME}/pkg/${OS_PREFIX}/sbin             \
       ${HOME}/pkg/${OS_PREFIX}/bin              \
@@ -29,6 +30,7 @@ NetBSD)
     ;;
 *)
     setpath PATH                                \
+      ${HOME}/scripts                           \
       ${HOME}/bin                               \
       ${HOME}/pkg/${OS_PREFIX}/sbin             \
       ${HOME}/pkg/${OS_PREFIX}/bin              \
