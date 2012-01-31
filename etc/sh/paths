@@ -43,6 +43,7 @@ NetBSD)
       /usr/pkg/xorg/bin                         \
       /usr/sfw/sbin /usr/sfw/bin                \
       /opt/sfw/sbin /opt/sfw/bin                \
+      /opt/csw/sbin /opt/csw/bin                \
       /usr/X11R7/bin                            \
       /usr/X11R6/bin                            \
       /usr/openwin/sbin /usr/openwin/bin        \
