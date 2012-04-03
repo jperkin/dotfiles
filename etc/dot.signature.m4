@@ -11,6 +11,9 @@ m4_divert(0)m4_dnl
 m4_ifdef([[[SITE_HOME]]],[[[m4_dnl
 m4_include([[[dot.signature_home]]])m4_dnl
 ]]])m4_dnl
+m4_ifdef([[[SITE_NETBSD]]],[[[m4_dnl
+m4_include([[[dot.signature_home]]])m4_dnl
+]]])m4_dnl
 m4_ifdef([[[SITE_ORACLE]]],[[[m4_dnl
 m4_include([[[dot.signature_oracle]]])m4_dnl
 ]]])m4_dnl
