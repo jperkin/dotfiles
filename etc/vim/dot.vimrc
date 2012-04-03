@@ -36,10 +36,14 @@ if has("autocmd")
   " Enable file type detection and customisation
   filetype plugin indent on
 
+  " Add missing filetypes
+  autocmd BufNewFile,BufRead *.gv set ft=dot
+
   " Filetype-based editing
   autocmd FileType awk        set et sta sts=4 sw=4
   autocmd FileType c          set et sta sts=4 sw=4
   autocmd FileType conf       set et sta sts=4 sw=4
+  autocmd FileType dot        set et sta sts=2 sw=2
   autocmd FileType html       set et sta sts=2 sw=2
   autocmd FileType javascript set et sta sts=2 sw=2
   autocmd FileType lua        set et sta sts=2 sw=2
