@@ -106,4 +106,4 @@ set xterm_title="mutt %f (%n/%o/%m) %?b?[%b NEW]?"
 #
 # Other misc settings.
 #
-alternates (jonathan@perkin.org.uk|jperkin@(netbsd|pkgsrc).org|(jonathan.perkin|jperkin)@oracle.com)
+alternates (jonathan@perkin.org.uk|jperkin@(netbsd|pkgsrc).org|(jonathan.perkin|jperkin)@joyent.com)
