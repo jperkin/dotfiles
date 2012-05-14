@@ -21,6 +21,7 @@ NetBSD)
       ${HOME}/pkg/sbin                          \
       ${HOME}/pkg/bin                           \
       /sbin /bin /usr/sbin /usr/bin             \
+      /opt/local/sbin /opt/local/bin            \
       /opt/pkg/sbin /opt/pkg/bin                \
       /usr/pkg/sbin /usr/pkg/bin                \
       /usr/pkg/xorg/bin                         \
@@ -36,6 +37,7 @@ NetBSD)
       ${HOME}/pkg/${OS_PREFIX}/bin              \
       ${HOME}/pkg/sbin                          \
       ${HOME}/pkg/bin                           \
+      /opt/local/sbin /opt/local/bin            \
       /opt/pkg/sbin /opt/pkg/bin                \
       /usr/pkg/sbin /usr/pkg/bin                \
       /sbin /bin /usr/sbin /usr/bin             \
@@ -58,6 +60,8 @@ setpath MANPATH                                 \
   /usr/share/man                                \
   ${HOME}/pkg/${OS_PREFIX}/man                  \
   ${HOME}/pkg/man                               \
+  /opt/local/man                                \
+  /opt/pkg/man                                  \
   /usr/pkg/man                                  \
   /usr/pkg/xorg/man                             \
   /usr/X11R7/man                                \
