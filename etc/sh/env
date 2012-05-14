@@ -10,39 +10,9 @@
 #
 
 
-# Basic environment setup
-
-# Dig out various details of the local environment, used to correctly
-# configure our setup.
-OS_NAME=`uname -s`
-
-case "${OS_NAME}" in
-Linux)
-    # Use the same as pkgsrc for consistency, as well as the fact that
-    # `uname -p' on Linux usually returns "unknown".
-    OS_ARCH=`uname -m | sed -e 's/i.86/i386/' -e 's/ppc/powerpc/'`
-
-    # Given the frequent nature of Linux kernel revisions compared to
-    # other operating systems, use the major release only as opposed to
-    # the full version to save us having hundreds of individual builds.
-    OS_VERSION=`uname -r | cut -d. -f1-2`
-    ;;
-OpenBSD)
-    # OpenBSD returns CPU identification string in `uname -p`
-    OS_ARCH=`uname -m`
-    OS_VERSION=`uname -r`
-    ;;
-*)
-    OS_ARCH=`uname -p`
-    OS_VERSION=`uname -r`
-    ;;
-esac
-
-OS_HOST=`hostname`
-
-OS_PREFIX=${OS_NAME}-${OS_VERSION}-${OS_ARCH}
-
-export OS_ARCH OS_HOST OS_NAME OS_PREFIX OS_VERSION
+#
+# Set up our preferred environment
+#
 
 # Sensible output for disk status programs.
 BLOCKSIZE=1k

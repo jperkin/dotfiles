@@ -34,6 +34,9 @@ fi
 # nicer shell if possible, then customise afterwards as this file will be
 # parsed twice.
 
+# Basic environment setup, sets variables used in later files
+. ${HOME}/etc/sh/basicenv
+
 # Source in sh-compatible helper functions
 . ${HOME}/etc/sh/functions
 
