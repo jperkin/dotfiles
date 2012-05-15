@@ -83,6 +83,7 @@ if has("syntax") && (&t_Co > 2)
   "set background=dark
   colorscheme solarized
   " Override some of the default theme colours
+  highlight Normal          ctermfg=248         ctermbg=DarkGrey    cterm=bold
   highlight StatusLine      ctermfg=178         ctermbg=Black       cterm=bold
   highlight StatusLineNC    ctermfg=178         ctermbg=Black       cterm=bold
 endif

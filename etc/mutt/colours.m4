@@ -21,11 +21,11 @@ uncolor index           *
 
 # Generic
 color   error           brightred       BGCOL
-color   indicator       white           blue
+color   indicator       brightdefault   black
 color   markers         brightred       BGCOL
 color   message         brightcyan      BGCOL
-color   normal          white           BGCOL
-color   status          brightyellow    blue
+color   normal          brightdefault   BGCOL
+color   status          color178        black
 color   tilde           brightblue      BGCOL
 color   tree            brightmagenta   BGCOL
 
