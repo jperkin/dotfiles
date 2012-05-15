@@ -80,11 +80,11 @@ endif
 "
 if has("syntax") && (&t_Co > 2)
   syntax on
-  set background=dark
+  "set background=dark
+  colorscheme solarized
   " Override some of the default theme colours
-  highlight Comment         ctermfg=DarkGrey
-  highlight StatusLine      ctermfg=Yellow      ctermbg=DarkBlue    cterm=bold
-  highlight StatusLineNC    ctermfg=Yellow      ctermbg=DarkBlue    cterm=bold
+  highlight StatusLine      ctermfg=178         ctermbg=Black       cterm=bold
+  highlight StatusLineNC    ctermfg=178         ctermbg=Black       cterm=bold
 endif
 
 "
