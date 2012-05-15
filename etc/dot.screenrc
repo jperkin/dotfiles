@@ -20,4 +20,4 @@ bell_msg        ""
 
 hardstatus      on
 hardstatus      alwayslastline
-hardstatus      string "%{= bW} %-w%{= rW}%n %t%{-}%+w %=%{= bY}%Y-%m-%d "
+hardstatus      string "%{= kd} %-w%{= gk}%n %t%{-}%+w %=%{= ky}%Y-%m-%d "
