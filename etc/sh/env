@@ -31,8 +31,8 @@ prefprog PAGER less more
 # Mozilla-compatible browser, used by e.g. scripts/mutt/urlview
 prefprog MOZILLA firefox-linux firefox mozilla
 
-# Support ANSI colours in less(1)
-LESS="-R"
+# Support ANSI colours in less(1), and avoid clearing the screen on exit
+LESS="-RX"
 export LESS
 
 # Disable less history

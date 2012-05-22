@@ -76,6 +76,12 @@ if &term =~ "xterm"
 endif
 
 "
+" I cannot stand terminals which clear the screen after exiting
+"
+set t_te=
+set t_ti=
+
+"
 " Enable syntax highlighting if available
 "
 if has("syntax") && (&t_Co > 2)
