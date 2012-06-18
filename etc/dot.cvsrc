@@ -22,5 +22,5 @@
 cvs -q -z9
 checkout -P
 diff -uN
-rdiff -uN
+rdiff -u
 update -dP
