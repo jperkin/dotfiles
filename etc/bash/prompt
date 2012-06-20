@@ -22,21 +22,21 @@ set_prompt_bits()
     PEND="${DARKCYAN}-${CYAN}-\n${RESET}"
 
     # Show user@hostname.  Needs fixing for NIS domainname.
-    PUSER="${GREY}<${CYAN}\u${DARKCYAN}@${CYAN}${OS_HOST}${GREY}>"
+    PUSER="${CYAN}<${DARKGREEN}\u${PINK}@${DARKGREEN}${OS_HOST}${CYAN}>"
 
     # I use ${PWD} here to show the full path, as bash likes to use "~"
     # substitution for ${HOME}.
-    PDIR="${GREY}<${BLUE}\${PSPWD}${GREY}>"
+    PDIR="${CYAN}<${BROWN}\${PSPWD}${CYAN}>"
 
     # Not currently in use, but quite useful.
-    PDATE="${GREY}<${YELLOW}\$(date +%Y-%m-%d)${GREY}>"
+    PDATE="${CYAN}<${YELLOW}\$(date +%Y-%m-%d)${CYAN}>"
 
     # Nice and simple.  Normally I'd use a "$" for a sh-style prompt, but
     # it doesn't look quite right with the rest of my prompt.  Change the
     # colour when root to help remind me I might break something.
     case "${UID}" in
     0)
-        PCMD="${DARKCYAN}-${YELLOW}> ${RESET}"
+        PCMD="${DARKCYAN}-${RED}> ${RESET}"
         ;;
     *)
         PCMD="${DARKCYAN}-${GREY}> ${RESET}"

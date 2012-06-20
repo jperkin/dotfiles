@@ -41,24 +41,39 @@ EIGHTBIT 1
 # Attribute codes:
 # 00=none 01=bold 04=underscore 05=blink 07=reverse 08=concealed
 #
+# ANSI colors:
+#
 # Text color codes:
 # 30=black 31=red 32=green 33=yellow 34=blue 35=magenta 36=cyan 37=white
 #
 # Background color codes:
 # 40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white
+#
+# Solarized colors:
+#
+# 00;31 Red
+# 00;32 Green
+# 00;33 Yellow
+# 00;34 Blue
+# 00;35 Pink
+# 00;36 Cyan
+# 00;37 White
+# 01;31 Orange
+# 01;35 Violet
+#
 
 NORMAL  00          # Default, although everything should be something.
 FILE    00          # normal file
-DIR     01;33       # directory
-LINK    01;36       # symbolic link
+DIR     00;33       # directory
+LINK    00;36       # symbolic link
 FIFO    40;33       # pipe
-SOCK    01;35       # socket
+SOCK    00;35       # socket
 BLK     40;33;01    # block device driver
 CHR     40;33;01    # character device driver
 ORPHAN  40;31;01    # Symlink to a non-existant file
 
 # This is for files with execute permission:
-EXEC    01;32
+EXEC    00;31
 
 # File extensions
 *~      05;31       # Ugh, lame backup files (flashing red - rm!)
@@ -69,24 +84,24 @@ EXEC    01;32
 .bat    00;32       # DOS batch file
 
 # Source code - Cyan/White
-.c      01;37       # C source
-.cc     01;37       # C++ source
+.c      00;37       # C source
+.cc     00;37       # C++ source
 .o      00;33       # C object
 .h      00;36       # C header
-.pl     01;36       # Perl source
-.pm     01;36       # Perl module
-.cgi    01;36       # Perl CGI
-.java   01;36       # Java source
-.html   01;37       # HTML
+.pl     00;36       # Perl source
+.pm     00;36       # Perl module
+.cgi    00;36       # Perl CGI
+.java   00;36       # Java source
+.html   00;37       # HTML
 
 # Archives - Red
-.tar    01;31
-.tgz    01;31
+.tar    00;31
+.tgz    00;31
 .arj    00;31
 .taz    00;31
 .lzh    00;31
 .lha    00;31
-.deb    01;31
+.deb    00;31
 .rpm    00;31
 .zip    00;31
 .z      00;31
@@ -95,25 +110,27 @@ EXEC    01;32
 .bz2    01;31
 
 # Image Formats - Magenta
-.jpg    01;35
-.jpeg   01;35
-.JPG    01;35
+.jpg    00;35
+.jpeg   00;35
+.JPG    00;35
 .gif    00;35
 .GIF    00;35
 .bmp    00;35
 .BMP    00;35
-.xbm    01;35
-.ppm    01;35
-.xpm    01;35
-.tif    01;35
-.png    01;35
-.pcx    01;35
+.xbm    00;35
+.ppm    00;35
+.xpm    00;35
+.tif    00;35
+.png    00;35
+.pcx    00;35
 
 # Audio/Video formats - Blue
 .avi    00;34
-.mp3    01;34
-.mpg    01;34
-.mpeg   01;34
+.mp3    00;34
+.mpg    00;34
+.mpeg   00;34
+.m4v    00;34
+.ts     00;34
 
 # Used for testing purposes
 .0030   00;30
