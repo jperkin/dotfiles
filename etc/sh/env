@@ -63,6 +63,10 @@ unset ignoreeof
 #
 # TODO: Only support LC_CTYPE for now, properly investigate setting the rest.
 #
+# Explicitly unset LC_CTYPE in case it has been passed through an SSH
+# session and is set to something unsupported on the target machine.
+#
+unset LC_CTYPE
 PREFLOCALE="en_GB.UTF-8 en_GB.utf8"
 PREFLOCALE="${PREFLOCALE} en_GB.ISO8859-15 en_GB.iso885915"
 PREFLOCALE="${PREFLOCALE} en_GB.ISO8859-1 en_GB.iso88591 iso_8859_1"
