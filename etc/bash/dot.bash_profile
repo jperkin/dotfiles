@@ -16,3 +16,11 @@
 if [ -f ${HOME}/.bashrc ]; then
     . ${HOME}/.bashrc
 fi
+
+# Print running screen sessions.
+if tty -s && [ -n "${SSH_TTY}" ]; then
+    if command -v screen >/dev/null 2>&1; then
+        # Why doesn't -ls just return something sensible?!
+        screen -ls | grep ^There >/dev/null 2>&1 && screen -ls
+    fi
+fi
