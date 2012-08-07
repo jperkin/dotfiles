@@ -38,9 +38,6 @@ m4_ifdef([[[SITE_HOME]]],[[[m4_dnl
 set header_cache="~/.mutt_hcache/"
 
 ]]])m4_dnl
-# http://www.mutt.org/doc/manual/manual-6.html#imap_passive
-set imap_passive=no
-
 # http://www.mutt.org/doc/devel/manual.html#imap-check-subscribed
 set imap_check_subscribed=yes
 
