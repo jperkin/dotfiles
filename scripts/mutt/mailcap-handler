@@ -35,7 +35,7 @@ mkdir -p -m 0700 ${tmpdir}
 # Get an md5sum of the file to use as a unique(-ish) copy.
 #
 if type md5 >/dev/null 2>&1; then
-        MD5='md5'
+        MD5='md5 -q'
 elif type digest >/dev/null 2>&1 &&
           digest md5 /dev/null >/dev/null 2>&1; then
         MD5='digest md5'
