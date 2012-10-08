@@ -50,20 +50,21 @@ elif type openssl >/dev/null 2>&1 &&
 fi
 workfile=`$MD5 ${file} | awk '{print $1}'`
 suffix=`echo ${file} | awk -F. '{print $NF}'`
+tmpfile="${tmpdir}/${workfile}.${suffix}"
 
-if [ ! -f ${tmpdir}/${workfile}.${suffix} ]; then
-    cp ${file} ${tmpdir}/${workfile}.${suffix}
+if [ ! -f ${tmpfile} ]; then
+    cp ${file} ${tmpfile}
 fi
 
 case "`uname -s`" in
 Darwin)
-    open ${tmpdir}/${workfile}.${suffix}
+    open ${tmpfile}
     ;;
 Linux)
     if command -v xdg-open >/dev/null 2>&1; then
-        xdg-open ${tmpdir}/${workfile}.${suffix}
+        xdg-open ${tmpfile}
     else
-        gnome-open ${tmpdir}/${workfile}.${suffix}
+        gnome-open ${tmpfile}
     fi
     ;;
 esac
