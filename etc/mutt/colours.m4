@@ -11,11 +11,8 @@ m4_include(`common')m4_dnl
 #   http://www.mutt.org/doc/manual/manual-3.html#color
 #
 
-m4_ifdef([[[SITE_HOME]]],[[[m4_dnl
-m4_define([[[BGCOL]]],[[[default]]])m4_dnl
-]]],[[[m4_dnl
-m4_define([[[BGCOL]]],[[[black]]])m4_dnl
-]]])m4_dnl
+m4_dnl Set this to 'black' on hosts which don't support default.
+m4_define([[[BGCOL]]],      [[[default]]])m4_dnl
 m4_define([[[BLACK]]],      [[[color0]]])m4_dnl
 m4_define([[[RED]]],        [[[color1]]])m4_dnl
 m4_define([[[GREEN]]],      [[[color2]]])m4_dnl
