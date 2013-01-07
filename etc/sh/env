@@ -107,14 +107,6 @@ if [ -z "${LC_CTYPE}" ]; then
     LC_CTYPE=C
 fi
 
-#
-# XXX: For now just use 'C' on NetBSD, to avoid bash/multibyte bugs, needs
-# more investigation
-#
-if [ "${OS_NAME}" = "NetBSD" ]; then
-    LC_CTYPE=C
-fi
-
 export LC_CTYPE
 
 unset PREFLOCALE loc
