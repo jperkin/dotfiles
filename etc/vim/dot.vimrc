@@ -107,11 +107,3 @@ if has("syntax") && (&t_Co > 2)
   highlight! link mailQuoted8 mailQuoted4
   highlight! link vimLineComment Comment
 endif
-
-"
-" Have a nice xterm titlebar showing what file we're editing.
-"
-if has("title")
-  set title
-  let &titlestring = expand ("%:p:~:.:h")
-endif
