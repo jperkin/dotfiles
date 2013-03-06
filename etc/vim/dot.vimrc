@@ -49,6 +49,7 @@ if has("autocmd")
   autocmd FileType lua        set et sta sts=2 sw=2
   autocmd FileType m4         set et sta sts=4 sw=4
   autocmd FileType perl       set et sta sts=4 sw=4
+  autocmd FileType php        set et sta sts=2 sw=2
   autocmd FileType python     set et sta sts=4 sw=4
   autocmd FileType ruby       set et sta sts=2 sw=2
   autocmd FileType sh         set et sta sts=4 sw=4
