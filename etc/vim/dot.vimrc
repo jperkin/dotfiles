@@ -37,7 +37,8 @@ if has("autocmd")
   filetype plugin indent on
 
   " Add missing filetypes
-  autocmd BufNewFile,BufRead *.gv set ft=dot
+  autocmd BufNewFile,BufRead *.gv     set ft=dot
+  autocmd BufNewFile,BufRead *.json   set ft=json
 
   " Filetype-based editing
   autocmd FileType awk        set et sta sts=4 sw=4
