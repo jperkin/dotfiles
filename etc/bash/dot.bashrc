@@ -33,7 +33,7 @@ case "$-" in
     set_prompt
 
     # Load bash programmable completion
-    for dir in /etc /usr/pkg/share/bash-completion; do
+    for dir in /etc /etc/bash /usr/pkg/share/bash-completion; do
         if [ -f ${dir}/bash_completion ]; then
             . ${dir}/bash_completion
         fi
