@@ -47,6 +47,7 @@ if has("autocmd")
   autocmd FileType conf       set et sta sts=4 sw=4
   autocmd FileType dot        set et sta sts=2 sw=2
   autocmd FileType html       set et sta sts=2 sw=2
+  autocmd FileType jade       set et sta sts=2 sw=2
   autocmd FileType javascript set et sta sts=2 sw=2
   autocmd FileType lua        set et sta sts=2 sw=2
   autocmd FileType m4         set et sta sts=4 sw=4
