@@ -38,6 +38,7 @@ if has("autocmd")
 
   " Add missing filetypes
   autocmd BufNewFile,BufRead *.gv     set ft=dot
+  autocmd BufNewFile,BufRead *.gyp    set ft=json
   autocmd BufNewFile,BufRead *.jade   set ft=jade
   autocmd BufNewFile,BufRead *.json   set ft=json
 
