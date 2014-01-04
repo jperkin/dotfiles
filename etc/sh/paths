@@ -16,6 +16,7 @@ NetBSD)
     setpath PATH                                \
       ${HOME}/scripts                           \
       ${HOME}/bin                               \
+      ${HOME}/node_modules/.bin                 \
       ${HOME}/pkg/${OS_PREFIX}/sbin             \
       ${HOME}/pkg/${OS_PREFIX}/bin              \
       ${HOME}/pkg/sbin                          \
@@ -33,6 +34,7 @@ NetBSD)
     setpath PATH                                \
       ${HOME}/scripts                           \
       ${HOME}/bin                               \
+      ${HOME}/node_modules/.bin                 \
       ${HOME}/pkg/${OS_PREFIX}/sbin             \
       ${HOME}/pkg/${OS_PREFIX}/bin              \
       ${HOME}/pkg/sbin                          \
@@ -69,6 +71,13 @@ setpath MANPATH                                 \
   /usr/openwin/man                              \
   /usr/dt/man                                   \
   /usr/local/man
+
+# It would be really handly to have node_modules/.man
+for dir in ${HOME}/node_modules/*/man; do
+    if [ -d ${dir} ]; then
+        prependpath MANPATH ${dir}
+    fi
+done
 
 # ${CDPATH} is useful for providing a list of directories used with the cd
 # command to search in places other than the current working directory.
