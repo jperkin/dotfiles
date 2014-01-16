@@ -102,9 +102,9 @@ esac
 # Local aliases
 . ${HOME}/etc/sh/aliases
 
-# Local hacks (optional)
-if [ -f ${HOME}/etc/sh/hacks ]; then
-    . ${HOME}/etc/sh/hacks
+# Private bits not suitable for public repo
+if [ -f ${HOME}/etc/sh/private ]; then
+    . ${HOME}/etc/sh/private
 fi
 
 #
