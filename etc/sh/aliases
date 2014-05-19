@@ -54,6 +54,7 @@ done
 unset GNUPREFIX pfx cleanpfx
 
 # General aliases
+alias cdwrk='cd $(bmake show-var VARNAME=WRKSRC)'
 alias suroot="sudo /bin/sh -c 'su -'"
 alias vpn-up="sudo vpnc"
 alias vpn-down="sudo vpnc-disconnect"
