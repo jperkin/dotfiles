@@ -62,8 +62,8 @@ setpath MANPATH                                 \
   /usr/share/man                                \
   ${HOME}/pkg/${OS_PREFIX}/man                  \
   ${HOME}/pkg/man                               \
-  /opt/local/man                                \
-  /opt/pkg/man                                  \
+  /opt/local/share/man /opt/local/man           \
+  /opt/pkg/share/man /opt/pkg/man               \
   /usr/pkg/man                                  \
   /usr/pkg/xorg/man                             \
   /usr/X11R7/man                                \
