@@ -83,7 +83,7 @@ done
 # command to search in places other than the current working directory.
 
 # Search the current directory first.
-setpath CDPATH .
+#setpath CDPATH .
 
 # NetBSD source directories relative to NETBSDSRCDIR.
 # This should probably be made generic for all BSD source trees (not hard).
