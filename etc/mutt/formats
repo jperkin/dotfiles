@@ -10,7 +10,7 @@
 
 
 # http://www.mutt.org/doc/manual/manual-6.html#folder_format
-set folder_format="%2C %t %2N %-8.8u %-8.8g %8s %f"
+set folder_format="%3C %t %2N %5n %-8.8u %-8.8g %8s %f"
 
 # http://www.mutt.org/doc/manual/manual-6.html#forward_format
 set forward_format="Fwd: %s"
