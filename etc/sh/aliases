@@ -65,5 +65,7 @@ fi
 
 mps()
 {
-	(cd $1; bmake mps)
+	for dir in "$@"; do
+		(cd ${dir}; bmake mps)
+	done
 }
