@@ -58,3 +58,12 @@ alias cdwrk='cd $(bmake show-var VARNAME=WRKSRC)'
 alias suroot="sudo /bin/sh -c 'su -'"
 alias vpn-up="sudo vpnc"
 alias vpn-down="sudo vpnc-disconnect"
+
+if [ -f /Applications/Arduino.app/Contents/MacOS/Arduino ]; then
+	alias arduino=/Applications/Arduino.app/Contents/MacOS/Arduino
+fi
+
+mps()
+{
+	(cd $1; bmake mps)
+}
