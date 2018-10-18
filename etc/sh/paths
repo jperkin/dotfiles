@@ -22,6 +22,7 @@ NetBSD)
       ${HOME}/pkg/sbin                          \
       ${HOME}/pkg/bin                           \
       /sbin /bin /usr/sbin /usr/bin             \
+      /opt/tools/sbin /opt/tools/bin            \
       /opt/local/sbin /opt/local/bin            \
       /opt/pkg/sbin /opt/pkg/bin                \
       /usr/pkg/sbin /usr/pkg/bin                \
@@ -39,6 +40,7 @@ NetBSD)
       ${HOME}/pkg/${OS_PREFIX}/bin              \
       ${HOME}/pkg/sbin                          \
       ${HOME}/pkg/bin                           \
+      /opt/tools/sbin /opt/tools/bin            \
       /opt/local/sbin /opt/local/bin            \
       /opt/pkg/sbin /opt/pkg/bin                \
       /usr/pkg/sbin /usr/pkg/bin                \
@@ -62,6 +64,7 @@ setpath MANPATH                                 \
   /usr/share/man                                \
   ${HOME}/pkg/${OS_PREFIX}/man                  \
   ${HOME}/pkg/man                               \
+  /opt/tools/share/man /opt/tools/man           \
   /opt/local/share/man /opt/local/man           \
   /opt/pkg/share/man /opt/pkg/man               \
   /usr/pkg/man                                  \
