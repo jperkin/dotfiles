@@ -16,6 +16,7 @@ NetBSD)
     setpath PATH                                \
       ${HOME}/scripts                           \
       ${HOME}/bin                               \
+      ${HOME}/.cargo/bin			\
       ${HOME}/node_modules/.bin                 \
       ${HOME}/pkg/${OS_PREFIX}/sbin             \
       ${HOME}/pkg/${OS_PREFIX}/bin              \
@@ -35,6 +36,7 @@ NetBSD)
     setpath PATH                                \
       ${HOME}/scripts                           \
       ${HOME}/bin                               \
+      ${HOME}/.cargo/bin			\
       ${HOME}/node_modules/.bin                 \
       ${HOME}/pkg/${OS_PREFIX}/sbin             \
       ${HOME}/pkg/${OS_PREFIX}/bin              \
