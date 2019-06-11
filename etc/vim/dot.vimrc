@@ -83,8 +83,8 @@ if has("syntax") && (&t_Co > 2)
 	" Override some of the default theme colours
 	highlight Comment	ctermfg=10			cterm=none
 	highlight Normal	ctermfg=none			cterm=none
-	highlight StatusLine	ctermfg=3	ctermbg=0	cterm=none
-	highlight StatusLineNC	ctermfg=3	ctermbg=0	cterm=none
+	highlight StatusLine	ctermfg=3	ctermbg=7	cterm=none
+	highlight StatusLineNC	ctermfg=3	ctermbg=7	cterm=none
 	highlight mailSubject	ctermfg=6			cterm=none
 	highlight mailSignature	ctermfg=4			cterm=none
 	" Match	mutt colours
