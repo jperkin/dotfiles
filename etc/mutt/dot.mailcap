@@ -18,6 +18,7 @@ application/*;		~/scripts/mutt/mailcap-handler %s
 image/*;		~/scripts/mutt/mailcap-handler %s
 
 #
-# Ok, except for this one...
+# Ok, except for these...
 #
 text/html;              w3m -dump %s; copiousoutput; nametemplate=%s.html
+text/x-diff;		cat %s; copiousoutput
