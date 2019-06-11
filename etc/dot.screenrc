@@ -7,17 +7,17 @@
 #
 # dot.screenrc - config file for the screen virtual terminal manager
 #
-#   screen(1)
+#	screen(1)
 #
 
 
-startup_message off
-defbce          on
-defscrollback   1000
-term            xterm
-vbell           off
-bell_msg        ""
+startup_message	off
+defbce		on
+defscrollback	1000
+term		xterm
+vbell		off
+bell_msg	""
 
-hardstatus      on
-hardstatus      alwayslastline
-hardstatus      string "%{= kd} %-w%{= gk}%n %t%{-}%+w %=%{= ky}%Y-%m-%d "
+hardstatus	on
+hardstatus	alwayslastline
+hardstatus	string "%{= wd} %-w%{= wy}%n %t%{-}%+w"
