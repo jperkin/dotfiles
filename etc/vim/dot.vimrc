@@ -77,22 +77,23 @@ set t_ti=
 "
 if has("syntax") && (&t_Co > 2)
 	syntax on
-	set background=dark
+	set background=light
 	colorscheme solarized
 
 	" Override some of the default theme colours
-	highlight	Comment		ctermfg=10			cterm=none
-	highlight	Normal		ctermfg=none			cterm=none
-	highlight	StatusLine	ctermfg=3	ctermbg=0	cterm=none
-	highlight	StatusLineNC	ctermfg=3	ctermbg=0	cterm=none
-	highlight	mailSubject	ctermfg=6			cterm=none
-	highlight	mailSignature	ctermfg=4			cterm=none
+	highlight Comment	ctermfg=10			cterm=none
+	highlight Normal	ctermfg=none			cterm=none
+	highlight StatusLine	ctermfg=3	ctermbg=0	cterm=none
+	highlight StatusLineNC	ctermfg=3	ctermbg=0	cterm=none
+	highlight mailSubject	ctermfg=6			cterm=none
+	highlight mailSignature	ctermfg=4			cterm=none
 	" Match	mutt colours
-	highlight	mailQuoted1	ctermfg=6			cterm=none
-	highlight	mailQuoted2	ctermfg=3			cterm=none
-	highlight	mailQuoted3	ctermfg=2			cterm=none
-	highlight	mailQuoted4	ctermfg=13			cterm=none
-	highlight	mailURL		ctermfg=13			cterm=none
+	highlight mailQuoted1	ctermfg=6			cterm=none
+	highlight mailQuoted2	ctermfg=3			cterm=none
+	highlight mailQuoted3	ctermfg=2			cterm=none
+	highlight mailQuoted4	ctermfg=13			cterm=none
+	highlight mailURL	ctermfg=13			cterm=none
+
 	highlight! link	mailQuoted5	mailQuoted1
 	highlight! link	mailQuoted6	mailQuoted2
 	highlight! link	mailQuoted7	mailQuoted3
