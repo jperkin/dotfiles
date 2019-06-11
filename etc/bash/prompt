@@ -39,7 +39,7 @@ set_prompt_bits()
         PCMD="${DARKCYAN}-${RED}> ${RESET}"
         ;;
     *)
-        PCMD="${DARKCYAN}-${GREY}> ${RESET}"
+        PCMD="${DARKCYAN}-${CYAN}> ${RESET}"
         ;;
     esac
 }
