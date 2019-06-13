@@ -26,7 +26,10 @@ TERM dtterm
 TERM linux
 TERM rxvt
 TERM screen
+TERM screen-256color
 TERM screen-bce
+TERM tmux
+TERM tmux-256color
 TERM vt220
 TERM xterm
 TERM xterm-256color
